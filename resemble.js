@@ -558,18 +558,10 @@ var isNode = function () {
             }
 
             var mismatchCount = 0;
-            var diffBounds = {
-                top: height,
-                left: width,
-                bottom: 0,
-                right: 0
-            };
+						var diffBounds = []
             var updateBounds = function (x, y) {
-                diffBounds.left = Math.min(x, diffBounds.left);
-                diffBounds.right = Math.max(x, diffBounds.right);
-                diffBounds.top = Math.min(y, diffBounds.top);
-                diffBounds.bottom = Math.max(y, diffBounds.bottom);
-            };
+							diffBounds.push({x,y})
+						};
 
             var time = Date.now();
 
@@ -666,6 +658,7 @@ var isNode = function () {
             data.misMatchPercentage = data.rawMisMatchPercentage.toFixed(2);
             data.diffBounds = diffBounds;
             data.analysisTime = Date.now() - time;
+						data.dimensions = {width: width, height: height}
 
             data.getImageDataUrl = function (text) {
                 if (compareOnly) {
